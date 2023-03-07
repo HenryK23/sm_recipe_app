@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -109,9 +111,13 @@ class ExplorePage extends StatelessWidget {
                               ),
                             ],
                             image: DecorationImage(
+                              onError: (exception, stackTrace) =>
+                                  log('error loading image'),
                               image: CachedNetworkImageProvider(
                                   viewModel.categoryRecipes[index].image ?? "",
-                                  scale: 1),
+                                  scale: 1,
+                                  errorListener: () => log(
+                                      "error loading image ${viewModel.categoryRecipes[index].image}")),
                               fit: BoxFit.cover,
                             ),
                             color: Colors.blue,
@@ -192,8 +198,12 @@ Widget _recommendedRecipes(BuildContext context, ExploreViewModel viewModel) {
                       ),
                     ],
                     image: DecorationImage(
+                      onError: (exception, stackTrace) =>
+                          log('error loading image'),
                       image: CachedNetworkImageProvider(
-                          viewModel.recommendedRecipes[index].image ?? ""),
+                          viewModel.recommendedRecipes[index].image ?? "",
+                          errorListener: () => log(
+                              "error loading image ${viewModel.categoryRecipes[index].image}")),
                       fit: BoxFit.cover,
                     ),
                     color: Colors.blue,

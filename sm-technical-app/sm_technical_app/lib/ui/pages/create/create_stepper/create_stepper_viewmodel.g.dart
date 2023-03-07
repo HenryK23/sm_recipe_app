@@ -200,22 +200,6 @@ mixin _$CreateStepperViewModel on _CreateStepperViewModel, Store {
     });
   }
 
-  late final _$lunchImagesAtom =
-      Atom(name: '_CreateStepperViewModel.lunchImages', context: context);
-
-  @override
-  List<String> get lunchImages {
-    _$lunchImagesAtom.reportRead();
-    return super.lunchImages;
-  }
-
-  @override
-  set lunchImages(List<String> value) {
-    _$lunchImagesAtom.reportWrite(value, super.lunchImages, () {
-      super.lunchImages = value;
-    });
-  }
-
   late final _$generatePlanAsyncAction =
       AsyncAction('_CreateStepperViewModel.generatePlan', context: context);
 
@@ -334,7 +318,6 @@ selectedDietPlan: ${selectedDietPlan},
 dinnerResponsedto: ${dinnerResponsedto},
 lunchRecipes: ${lunchRecipes},
 dinnerRecipes: ${dinnerRecipes},
-lunchImages: ${lunchImages},
 excludedFoodText: ${excludedFoodText},
 cuisineText: ${cuisineText}
     ''';

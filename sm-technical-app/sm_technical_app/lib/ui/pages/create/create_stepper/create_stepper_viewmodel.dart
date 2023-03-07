@@ -53,9 +53,6 @@ abstract class _CreateStepperViewModel extends ViewModel with Store {
   @observable
   List<RecipeDTO> dinnerRecipes = [];
 
-  @observable
-  List<String> lunchImages = [];
-
   @computed
   String get excludedFoodText {
     excludeFood.removeWhere((food) => food == selectedDietPlan);
@@ -152,6 +149,10 @@ abstract class _CreateStepperViewModel extends ViewModel with Store {
     if (lunchResponse.isSuccess) {
       lunchResponsedto = RecipeResponseDTO.fromMap(lunchResponse.payload);
 
+      if (lunchResponsedto!.count < 5) {
+        return;
+      }
+
       for (var i = 0; i < 5; i++) {
         lunchRecipes.add(lunchResponsedto!.hits[i].recipe);
       }
@@ -160,7 +161,6 @@ abstract class _CreateStepperViewModel extends ViewModel with Store {
     } else {
       //handle error
     }
-    isLoading = false;
   }
 
   @action
@@ -171,6 +171,10 @@ abstract class _CreateStepperViewModel extends ViewModel with Store {
     if (dinnerResponse.isSuccess) {
       dinnerResponsedto = RecipeResponseDTO.fromMap(dinnerResponse.payload);
 
+      if (dinnerResponsedto!.count < 5) {
+        return;
+      }
+
       for (var i = 0; i < 5; i++) {
         dinnerRecipes.add(dinnerResponsedto!.hits[i].recipe);
       }
@@ -178,8 +182,6 @@ abstract class _CreateStepperViewModel extends ViewModel with Store {
     } else {
       //handle error
     }
-
-    isLoading = false;
   }
 
   Future<String> getFilePath(String url) async {

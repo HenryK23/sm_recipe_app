@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -6,6 +8,7 @@ import 'package:sm_technical_app/domain/constants/routes.dart';
 import 'package:sm_technical_app/helpers/enums/text_state.dart';
 import 'package:sm_technical_app/helpers/stringextension.dart';
 import 'package:sm_technical_app/ui/pages/plan/plan_viewmodel.dart';
+import 'package:sm_technical_app/ui/shared/theme/app_colours.dart';
 import 'package:sm_technical_app/ui/shared/theme/app_text.dart';
 import 'package:sm_technical_app/ui/shared/widgets/buttons/squareflatbutton.dart';
 
@@ -73,8 +76,13 @@ class PlanPage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
                 image: DecorationImage(
-                    image: CachedNetworkImageProvider(viewModel
-                        .dinnerRecipes[viewModel.selectedDayIndex].image!),
+                    onError: (exception, stackTrace) =>
+                        log('error loading image'),
+                    image: CachedNetworkImageProvider(
+                        viewModel
+                            .dinnerRecipes[viewModel.selectedDayIndex].image!,
+                        errorListener: () => log(
+                            "error loading image ${viewModel.dinnerRecipes[viewModel.selectedDayIndex].image}")),
                     fit: BoxFit.cover),
               ),
               child: Align(
@@ -119,10 +127,16 @@ class PlanPage extends StatelessWidget {
               height: 200,
               width: MediaQuery.of(context).size.width * 0.8,
               decoration: BoxDecoration(
+                color: AppColours.primary,
                 borderRadius: BorderRadius.circular(12.0),
                 image: DecorationImage(
-                    image: CachedNetworkImageProvider(viewModel
-                        .lunchRecipes[viewModel.selectedDayIndex].image!),
+                    onError: (exception, stackTrace) =>
+                        log('error loading image'),
+                    image: CachedNetworkImageProvider(
+                        viewModel
+                            .lunchRecipes[viewModel.selectedDayIndex].image!,
+                        errorListener: () => log(
+                            "error loading image ${viewModel.lunchRecipes[viewModel.selectedDayIndex].image}")),
                     fit: BoxFit.cover),
               ),
               child: Align(

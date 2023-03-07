@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sm_technical_app/domain/constants/routes.dart';
 import 'package:sm_technical_app/ui/pages/create/create_stepper/create_stepper_viewmodel.dart';
@@ -66,12 +67,20 @@ class _CreatePlanPageState extends State<CreatePlanPage>
                           text: 'Create plan',
                           onPressed: () async {
                             widget.viewModel.isGenerating = true;
-                            widget.viewModel.generatePlan();
-                            await animController.forward().then((value) {
-                              // animController.reset();
-                              // widget.viewModel.isGenerating = false;
-                              context.goNamed(Routes.plan.name);
-                            });
+                            await widget.viewModel.generatePlan();
+                            if (widget.viewModel.lunchRecipes.isNotEmpty &&
+                                widget.viewModel.dinnerRecipes.isNotEmpty) {
+                              await animController.forward().then((value) {
+                                context.goNamed(Routes.plan.name);
+                              });
+                            } else {
+                              widget.viewModel.isGenerating = false;
+                              Fluttertoast.showToast(
+                                  backgroundColor: AppColours.red,
+                                  toastLength: Toast.LENGTH_LONG,
+                                  msg:
+                                      'Error generating plan, please try again or change your preferences');
+                            }
                           }),
                     ),
                     Padding(
