@@ -1,0 +1,46 @@
+name: sm_technical_app
+description: A new Flutter project.
+
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.19.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  mobx: ^2.1.4
+  flutter_mobx: ^2.0.6+5
+  flutter_dotenv: ^5.0.2
+  flutter_animate: ^4.1.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  http: ^0.13.5
+  go_router: ^6.0.9
+  google_fonts: ^3.0.1
+  sprintf: ^7.0.0
+  path_provider: ^2.0.7
+  cached_network_image: ^3.2.3
+  url_launcher: ^6.1.10
+  webview_flutter: ^3.0.4
+  connectivity_plus: ^2.2.0
+  fluttertoast: ^8.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+  build_runner:
+  mobx_codegen:
+
+flutter:
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/.env
+  #   - images/a_dot_ham.jpeg
